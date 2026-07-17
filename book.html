@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HungryGo - Checkout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+
+
+    background-image: url('./foodie/assets/images/newnext.avif'); /* Replace 'your-image.jpg' with the path to your image */
+    background-size: cover; /* Makes the background cover the entire area */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents repeating the background */
+    position: relative;
+}
+    
+
+    h2, h3 {
+      color: #d12929;
+    }
+
+    h2 {
+    font-family: 'Poppins', sans-serif; /* Use a modern font */
+    font-size: 28px; /* Slightly larger font size */
+    color: #f8f8f8; /* Dark grey for text color */
+    background-color: #ee8aee; /* Light background to highlight text */
+    padding: 10px 20px; /* Add some space around the text */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 6px rgba(144, 144, 59, 0.1); /* Subtle shadow effect */
+    text-align: center; /* Center-align the text */
+    letter-spacing: 1px; /* Slight letter spacing for better readability */
+    margin-bottom: 20px; /* Add some space below the heading */
+    text-transform: uppercase; /* Make the text uppercase */
+}
+
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #EA7773;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+
+    .item-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .item {
+      width: 30%;
+      margin: 10px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .cart-container, .form-container, .summary-container {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-container {
+      background-color: #e0f7fa;
+    }
+
+    .item-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.item {
+    background-color: #f9f9f9;
+    padding: 20px;
+    width: 30%; /* Adjust to fit 3 items in a row */
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+    .form-container {
+      background-color: #ffe0b2;
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      z-index: 1000;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .summary-container {
+      background-color: #ffffff;
+      display: block;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .summary-container h3 {
+      margin-top: 0;
+    }
+
+    .summary-container .close-btn {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #d12929;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    ul li::before {
+      content: "• ";
+      color: #007bff;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Items Available for Booking Every Hotel....</h2>
+
+  <div class="item-container">
+    <div class="item">
+      <h4>Item 1: Fried Burgers Unlimited</h4>
+      <img src="./assets/images/a1.jpg" alt="Burger">
+      <button class="btn" onclick="addToCart('Fried Burgers Unlimited', 45)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 2: King Whopper Noodles</h4>
+      <img src="./assets/images/a5.avif" alt="Noodles">
+      <button class="btn" onclick="addToCart('King Whopper Noodles', 49)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 3: Chicken Lolipop</h4>
+      <img src="./assets/images/food-menu-3.png" alt="Pizza">
+      <button class="btn" onclick="addToCart('White Castle Pizzas', 50)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 4: Supreme Dosa</h4>
+      <img src="./assets/images/a4.avif" alt="Dosa">
+      <button class="btn" onclick="addToCart('Supreme Dosa', 59)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 5: Khao Pulawo BBQ</h4>
+      <img src="./assets/images/a63.jpg" alt="Pulawo">
+      <button class="btn" onclick="addToCart('Khao Pulawo BBQ', 49)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 6: Wendy's French Fries</h4>
+      <img src="./assets/images/a7.avif" alt="Fries">
+      <button class="btn" onclick="addToCart('Wendy\'s French Fries', 49)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 7: Veggie Supreme Pizza</h4>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ91QSIsMrzdKWgxrLvgOYLkzPKPEF0nh5hRniRkLxO0g&s=10" alt="Veggie Supreme Pizza">
+      <button class="btn" onclick="addToCart('Veggie Supreme Pizza', 55)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 8: Paneer Butter Masala</h4>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7J1BbxZQZaVY7xgmOOwzeOLibVJ2kaaeL08y6e8c8bw&s=10" alt="Paneer Butter Masala">
+      <button class="btn" onclick="addToCart('Paneer Butter Masala', 65)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 9: Chicken Tandoori Wrap</h4>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXi4iqAukMfuSF_h7d6Fh4cyDPRFtDkBmYEq1UQVvRUA&s=10" alt="Chicken Tandoori Wrap">
+      <button class="btn" onclick="addToCart('Chicken Tandoori Wrap', 70)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 10: BBQ Chicken Pizza</h4>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREGg-ZudmDEx5kygilIJ0ZkWlLQIlHVOqT2il2ufxbPA&s=10" alt="BBQ Chicken Pizza">
+      <button class="btn" onclick="addToCart('BBQ Chicken Pizza', 75)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 11: Fish Fry</h4>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_qW9OZ60M28BAyzahjDUwIYa_eosSGRMORYbxwXFAvg&s=10" alt="Fish Fry">
+      <button class="btn" onclick="addToCart('Fish Fry', 65)">Add to Cart</button>
+    </div>
+
+    <div class="item">
+      <h4>Item 12: Cold Drink</h4>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpI_BbW3btXTfqUfjnYL30SIcgbT83Nqz41RVW_9xhXQ&s=10" alt="Fish Fry">
+      <button class="btn" onclick="addToCart('Cold Drink', 65)">Add to Cart</button>
+    </div>
+</div>
+
+
+  <h3>Cart</h3>
+  <div id="cartContainer" class="cart-container">
+    <p>No items in the cart.</p>
+  </div>
+
+  <div id="formContainer" class="form-container">
+    <button class="close-btn" onclick="closeForm()">✖</button>
+    <h3>Enter Delivery Details</h3>
+    <form id="deliveryForm" onsubmit="confirmBooking(event)">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Delivery Date</label>
+        <input type="date" id="date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="time">Delivery Time</label>
+        <input type="time" id="time" required>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Delivery Address</label>
+        <input type="text" id="address" required>
+      </div>
+
+      <button type="submit" class="btn">Confirm Booking</button>
+    </form>
+  </div>
+
+  <div id="popupOverlay" class="popup-overlay">
+    <div id="summaryContainer" class="summary-container">
+      <button class="close-btn" onclick="closePopup()">✖</button>
+      <h3>Booking Summary</h3>
+      <div id="summaryText"></div>
+      <button class="btn" onclick="printSlip()">Print Slip</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCart();
+      configureDeliveryInputs();
+    });
+
+    function configureDeliveryInputs() {
+      const dateInput = document.getElementById('date');
+      const timeInput = document.getElementById('time');
+      const now = new Date();
+      const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+      const minDate = localDate.toISOString().split('T')[0];
+
+      dateInput.min = minDate;
+      dateInput.value = minDate;
+      timeInput.min = now.toTimeString().slice(0, 5);
+
+      dateInput.addEventListener('change', () => {
+        if (dateInput.value === minDate) {
+          timeInput.min = now.toTimeString().slice(0, 5);
+        } else {
+          timeInput.min = '00:00';
+        }
+      });
+    }
+
+    function addToCart(itemName, price) {
+      cart.push({ itemName, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartContainer = document.getElementById('cartContainer');
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p>No items in the cart.</p>';
+        return;
+      }
+
+      let cartHTML = '<ul>';
+      cart.forEach(item => {
+        cartHTML += `<li>${item.itemName} - ₹${item.price}</li>`;
+      });
+      cartHTML += '</ul>';
+      cartHTML += `<p><strong>Total Price: ₹${calculateTotal()}</strong></p>`;
+      cartHTML += '<button class="btn" onclick="showForm()">Proceed to Checkout</button>';
+      cartContainer.innerHTML = cartHTML;
+    }
+
+    function calculateTotal() {
+      return cart.reduce((total, item) => total + item.price, 0);
+    }
+
+    function showForm() {
+      if (cart.length === 0) {
+        alert('Please add at least one item before checking out.');
+        return;
+      }
+      document.getElementById('formContainer').style.display = 'block';
+      document.getElementById('cartContainer').style.display = 'none';
+    }
+
+    function closeForm() {
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('cartContainer').style.display = 'block';
+    }
+
+    function confirmBooking(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const address = document.getElementById('address').value.trim();
+      const total = calculateTotal();
+
+      if (!name || !date || !time || !address) {
+        alert('Please complete all delivery fields.');
+        return;
+      }
+
+      const deliveryDateTime = new Date(`${date}T${time}`);
+      const now = new Date();
+
+      if (deliveryDateTime <= now) {
+        alert('Please schedule delivery for a future date and time.');
+        return;
+      }
+
+      const maxScheduleDate = new Date(now);
+      maxScheduleDate.setDate(maxScheduleDate.getDate() + 30);
+      if (deliveryDateTime > maxScheduleDate) {
+        alert('Please choose a delivery date within the next 30 days.');
+        return;
+      }
+
+      const orderId = `HG-${Date.now()}`;
+      const receiptLines = cart.map(item => `<li>${item.itemName} - ₹${item.price}</li>`).join('');
+
+      const receiptHTML = `
+        <div>
+          <h3>HungryGo Receipt</h3>
+          <p><strong>Order ID:</strong> ${orderId}</p>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Delivery Address:</strong> ${address}</p>
+          <p><strong>Delivery Date & Time:</strong> ${date} at ${time}</p>
+          <p><strong>Items Ordered:</strong></p>
+          <ul>${receiptLines}</ul>
+          <p><strong>Total Price:</strong> ₹${total}</p>
+          <p><em>Thank you for ordering with HungryGo!</em></p>
+        </div>
+      `;
+
+      document.getElementById('summaryText').innerHTML = receiptHTML;
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('popupOverlay').classList.add('show');
+      cart = [];
+      updateCart();
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').classList.remove('show');
+    }
+
+    function printSlip() {
+      const receiptContent = document.getElementById('summaryText').innerHTML;
+      const printWindow = window.open('', '', 'height=600,width=800');
+      printWindow.document.write('<html><head><title>HungryGo Receipt</title>');
+      printWindow.document.write('<style>body{font-family:Arial,sans-serif;padding:20px;}h3{color:#d12929;}ul{list-style:none;padding:0;}li{margin-bottom:8px;}</style>');
+      printWindow.document.write('</head><body>');
+      printWindow.document.write(receiptContent);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+    }
+  </script>
+</body>
+</html>
