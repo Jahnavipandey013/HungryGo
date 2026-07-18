@@ -55,6 +55,15 @@
             cursor: pointer;
             font-weight: bold;
         }
+        .demo-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            margin-bottom: 15px;
+        }
+        .demo-button:hover {
+            background-color: #218838;
+        }
         button:hover {
             background-color: #0056b3;
         }
@@ -71,6 +80,7 @@
         <h1>Welcome Back to 
             HungryGo!</h1>
        
+        <button type="button" id="demoLoginButton" class="demo-button" onclick="fillDemoCredentials()">Demo Login</button>
         <form id="loginForm" onsubmit="return validateUser(event)">
             <div class="form-group">
                 <label for="email">Email</label>
@@ -103,6 +113,16 @@
             }
         }
     </script>
+        <script>
+            function fillDemoCredentials() {
+                document.getElementById('email').value = 'demo@hungrygo.com';
+                document.getElementById('password').value = 'demo2005';
+                document.getElementById('message').textContent = '';
+            }
 
+            if (typeof users !== 'undefined') {
+                users['demo@hungrygo.com'] = 'demo2005';
+            }
+        </script>
 </body>
 </html>
